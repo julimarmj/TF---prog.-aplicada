@@ -165,7 +165,7 @@ class lista{
 int main() {
   int i=0, x=1;
   lista var;
-  
+
   while (x!=0){
       cout << "Escolha a ação a ser realizada: \n1 - Inserir dados\n2 - Ler dados\n0 - Sair\n";
       cin >> x;
@@ -180,7 +180,9 @@ int main() {
           cout << "Informe o valor da segunda resistência: \n";
           cin >> i;
           var.insereNoFim(i);
-    
+      }else if(x == 2){
+        var.imprimirElem();
+      }
 
 
     /*do {
