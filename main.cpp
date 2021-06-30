@@ -25,11 +25,11 @@ public:
   }
 };
 
+no* inicio;
+no* fim;
 class lista{
  public: 
-  no* inicio;
-  no* fim;
-
+  
   lista(){
     inicio=NULL;
     fim = NULL;
@@ -48,7 +48,7 @@ class lista{
     return (inicio == NULL);
   }
 
-  void imprimirElem(){
+  /*void imprimirElem(){
     cout << "Elementos da lista" << endl;
     no* i=inicio;
     if (seVazia()){
@@ -60,7 +60,7 @@ class lista{
       }
       cout << endl;
     }
-  }
+  }*/
 
   void insereNoInicio(int valor){
     no* novo = new no(valor);
@@ -161,28 +161,50 @@ class lista{
     cout << "A potência da fonte é: " << potencia << " W\n";
   }
 
+  void gravarNaLista(){
+    ofstream gravar;
+    no* i=inicio;
+    gravar.open("Entradas.txt", ios::out);
+      while (i){
+        gravar << i -> obterValor() << endl;
+        i=i -> obterProximo();
+      }
+      gravar << "------------------";
+      gravar.close();
+  }
+
 
 int main() {
   int i=0, x=1;
   lista var;
+  ifstream ler;
+  string texto = " ";
 
   while (x!=0){
-      cout << "Escolha a ação a ser realizada: \n1 - Inserir dados\n2 - Ler dados\n0 - Sair\n";
-      cin >> x;
+    cout << "Escolha a ação a ser realizada: \n1 - Inserir dados\n2 - Ler dados\n0 - Sair\n";
+    cin >> x;
 
-      if (x == 1){
-          cout << "Informe o valor da fonte: \n";
-          cin >> i;
-          var.insereNoFim(i);
-          cout << "Informe o valor da primeira resistência: \n";
-          cin >> i;
-          var.insereNoFim(i);
-          cout << "Informe o valor da segunda resistência: \n";
-          cin >> i;
-          var.insereNoFim(i);
-      }else if(x == 2){
-        var.imprimirElem();
+    if (x == 1){
+      cout << "Informe o valor da fonte: \n";
+      cin >> i;
+      var.insereNoFim(i);
+      cout << "Informe o valor da primeira resistência: \n";
+      cin >> i;
+      var.insereNoFim(i);
+      cout << "Informe o valor da segunda resistência: \n";
+      cin >> i;
+      var.insereNoFim(i);
+      gravarNaLista();
+
+    }else if(x == 2){
+      ler.open("Entradas.txt", ios::in);
+      cout << "------------------\n";
+      while (!ler.eof()){
+        ler >> texto;
+        cout << texto << endl;
       }
+    ler.close();
+    }
 
 
     /*do {
