@@ -70,36 +70,35 @@ class lista{
         gravar << i -> obterValor() << endl;
         i=i -> obterProximo();
       }
-      gravar << "-----";
+      gravar << " ";
       gravar.close();
   }
 };
 
 //=====================================FUNÇÕES=====================================
   
-  void paralelo(float v1, float r1, float r2){
-    lista out;
-    float resT, corrente, potencia;
-    resT = r1*r2/(r1+r2);
-    out.insereNoFim(resT);
-    corrente = v1/ resT;
-    out.insereNoFim(corrente);
-    potencia = v1 * corrente;
-    out.insereNoFim(potencia);
-    out.gravarNaLista("saidas.txt");
-  }
+lista out;
+void paralelo(float v1, float r1, float r2){
+  float resT, corrente, potencia;
+  resT = r1*r2/(r1+r2);
+  out.insereNoFim(resT);
+  corrente = v1/ resT;
+  out.insereNoFim(corrente);
+  potencia = v1 * corrente;
+  out.insereNoFim(potencia);
+  out.gravarNaLista("saidas.txt");
+}  
 
-  void serie(float v1, float r1, float r2){
-    lista out;
-    float resT, corrente, potencia;
-    resT = r1*r2;
-    out.insereNoFim(resT);
-    corrente = v1/ resT;
-    out.insereNoFim(corrente);
-    potencia = v1 * corrente;
-    out.insereNoFim(potencia);
-    out.gravarNaLista("saidas.txt");
-  }
+void serie(float v1, float r1, float r2){
+  float resT, corrente, potencia;
+  resT = r1*r2;
+  out.insereNoFim(resT);
+  corrente = v1/ resT;
+  out.insereNoFim(corrente);
+  potencia = v1 * corrente;
+  out.insereNoFim(potencia);
+  out.gravarNaLista("saidas.txt");
+}
 
 //=====================================MAIN=====================================
 
@@ -130,11 +129,9 @@ int main() {
       cin >> tipo;
 
        if (tipo==1){
-        cout <<"------------------------------------------------\n";
         paralelo(v1, r1, r2);
         i=0;
         }else if(tipo == 2){
-        cout <<"------------------------------------------------\n";
         serie(v1, r1, r2);
         i=0;
         }else {
@@ -147,7 +144,6 @@ int main() {
     }else if(x == 2){
       lerin.open("Entradas.txt", ios::in);
       lerout.open("saidas.txt", ios::in);
-      cout << "-----   -----\n";
       while (!lerin.eof()){
         lerin >> txt1;
         lerout >> txt2;
