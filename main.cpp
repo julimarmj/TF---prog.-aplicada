@@ -25,7 +25,7 @@ public:
   }
 };
 
-//======================================LISTA======================================
+//================================LISTA================================
 
 class lista{
  public: 
@@ -40,10 +40,6 @@ class lista{
   lista(float num){
     inicio = new no(num);
     fim = inicio;
-  }
-
-  virtual ~lista(){
-    delete inicio;
   }
 
   bool seVazia(){
@@ -62,7 +58,7 @@ class lista{
     }
   }
 
-   void gravarNaLista(string x){
+   void gravarNoArquivo(string x){
     ofstream gravar;
     no* i=inicio;
     gravar.open(x, ios::out);
@@ -70,12 +66,12 @@ class lista{
         gravar << i -> obterValor() << endl;
         i=i -> obterProximo();
       }
-      gravar << " ";
+      gravar << "--";
       gravar.close();
   }
 };
 
-//=====================================FUNÇÕES=====================================
+//===============================FUNÇÕES===============================
   
 lista out;
 void paralelo(float v1, float r1, float r2){
@@ -86,27 +82,28 @@ void paralelo(float v1, float r1, float r2){
   out.insereNoFim(corrente);
   potencia = v1 * corrente;
   out.insereNoFim(potencia);
-  out.gravarNaLista("saidas.txt");
+  out.gravarNoArquivo("saidas.txt");
 }  
 
 void serie(float v1, float r1, float r2){
   float resT, corrente, potencia;
-  resT = r1*r2;
+  resT = r1+r2;
   out.insereNoFim(resT);
   corrente = v1/ resT;
   out.insereNoFim(corrente);
   potencia = v1 * corrente;
   out.insereNoFim(potencia);
-  out.gravarNaLista("saidas.txt");
+  out.gravarNoArquivo("saidas.txt");
 }
 
-//=====================================MAIN=====================================
+//=================================MAIN=================================
 
 int main() {
-  int i=0, tipo=0, x=1;
+  int i=0 , j=0, tipo=0, x=1;
   lista var;
   ifstream lerin, lerout;
-  string txt1 = " ", txt2 = " ";
+  string txt1 = " ", txt2 = " ",
+    label1[3]={"Fonte: ", "Res1: ", "Res2: "}, lable2[3]={"ResT: "," I: ", " Pot: "}; 
 
   while (x!=0){
     float v1=0, r1=0, r2=0;
@@ -123,7 +120,7 @@ int main() {
       cout << "Informe o valor da segunda resistência: \n";
       cin >> r2;
       var.insereNoFim(r2);
-      var.gravarNaLista("Entradas.txt");
+      var.gravarNoArquivo("Entradas.txt");
       do {
       cout << "Para qual circuito deseja obter as informações: \n1 - Paralelo \n2 - Série \n";
       cin >> tipo;
@@ -144,10 +141,18 @@ int main() {
     }else if(x == 2){
       lerin.open("Entradas.txt", ios::in);
       lerout.open("saidas.txt", ios::in);
+      cout << "Entradas   Saidas\n";
       while (!lerin.eof()){
         lerin >> txt1;
         lerout >> txt2;
-        cout << txt1 << "   " << txt2 << endl;
+        if (txt1 != "--"){
+          cout << label1[j] << txt1 << "   " << lable2[j] << txt2 << endl;
+          j++;
+          if (j>2){
+            cout << "------------------------\n";
+            j=0;
+          }  
+        }
       }
     lerin.close();
     lerout.close();
